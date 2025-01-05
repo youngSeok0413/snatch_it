@@ -1,0 +1,112 @@
+
+**** 05/16/24 16:44:53 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "exp.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\Users\shipg\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.2.0\PSpice.ini file:
+.lib "nomd.lib" 
+
+*Analysis directives: 
+.AC DEC 10000 0.1 10000
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source PROJECT_EMG
+C_C4         N14435 LPF  140n  TC=0,0 
+R_R10         HPF N14435  1.69k TC=0,0 
+X_U3B         N14609 LPF VCC VEE LPF TL082
+R_R11         N14435 N14609  2.67k TC=0,0 
+V_V2         VEE 0 -9V
+C_C3         0 N14609  100n  TC=0,0 
+V_V1         VCC 0 9V
+X_U7         N15282 N15300 VCC VEE INST N15300 N15223 N15247 AD620/AD
+V_V3         N15282 N15300 DC 0Vdc AC 5m 
+R_R13         N15223 N15247  2k TC=0,0 
+R_R12         0 N15778  1k TC=0,0 
+X_U4B         LPF N15778 VCC VEE OUT TL082
+R_RF         N15778 OUT  20k TC=0,0 
+X_U8B         INST N16630 VCC VEE HPF TL082
+R_R14         0 N16630  1k TC=0,0 
+R_RF1         N16630 HPF  10k TC=0,0 
+
+**** RESUMING exp.cir ****
+.END
+
+ERROR -- EVALUATION VERSION analog Node Limit (75 Nodes) Exceeded!
+
+
+
+
+ABORTING SIMULATION
+**** 05/16/24 16:44:53 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+Node counts:
+  Top level (NUNODS)                =          14
+  External (NCNODS)                 =          86
+  Total (NUMNOD)                    =          86
+
+Total device count (NUMEL)          =         177
+  Capacitors (C)                    =          20
+  Diodes (D)                        =          29
+  VCVS (E)                          =           8
+  CCCS (F)                          =           5
+  VCCS (G)                          =          13
+  CCVS (H)                          =           3
+  Current Sources (I)               =           7
+  JFETs (J)                         =           6
+  Inductors (L)                     =           1
+  BJTs (Q)                          =           4
+  Resistors (R)                     =          49
+  Voltage Sources (V)               =          31
+
+Number of subcircuits (X)           =           4
+
+Analysis statistics:
+  No. total time points (NUMTTP)    =           0
+  No. rejected time points (NUMRTP) =           0
+  No. iterations (NUMNIT)           =           0
+
+Load Threads                        =           1
+
+Runtime statistics:                       Seconds      Iterations
+  Readin                            =         .05
+  General setup                     =        0.00
+  CMI setup                     =        0.00
+  Setup                             =        0.00
+  DC sweep                          =        0.00               0
+  Bias point                        =        0.00               0
+  AC and noise                      =        0.00               0
+  Total transient analysis          =        0.00
+  Output                            =        0.00
+  Overhead                          =         .05
+  Total job time                    =         .05
+

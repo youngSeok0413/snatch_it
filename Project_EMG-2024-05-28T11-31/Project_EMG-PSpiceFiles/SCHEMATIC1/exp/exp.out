@@ -1,0 +1,263 @@
+
+**** 05/16/24 16:45:38 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "exp.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\Users\shipg\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice\17.2.0\PSpice.ini file:
+.lib "nomd.lib" 
+
+*Analysis directives: 
+.AC DEC 10000 0.1 10000
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source PROJECT_EMG
+C_C4         N14435 LPF  140n  TC=0,0 
+R_R10         HPF N14435  1.69k TC=0,0 
+X_U3B         N14609 LPF VCC VEE LPF TL082
+R_R11         N14435 N14609  2.67k TC=0,0 
+V_V2         VEE 0 -9V
+C_C3         0 N14609  100n  TC=0,0 
+V_V1         VCC 0 9V
+X_U7         N15282 N15300 VCC VEE INST N15300 N15223 N15247 AD620/AD
+V_V3         N15282 N15300 DC 0Vdc AC 5m 
+R_R13         N15223 N15247  2k TC=0,0 
+X_U8B         INST N16630 VCC VEE HPF TL082
+R_R14         0 N16630  1k TC=0,0 
+R_RF1         N16630 HPF  10k TC=0,0 
+
+**** RESUMING exp.cir ****
+.END
+
+**** 05/16/24 16:45:38 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U3B.dx        X_U3B.dy        X_U7.DX         X_U7.DY         
+          IS  800.000000E-18  800.000000E-18    1.000000E-12    1.000000E-12 
+          BV                                                   50            
+          RS                    1.000000E-03                                 
+         CJO                   10.000000E-12                                 
+
+
+               X_U8B.dx        X_U8B.dy        
+          IS  800.000000E-18  800.000000E-18 
+          RS                    1.000000E-03 
+         CJO                   10.000000E-12 
+
+
+**** 05/16/24 16:45:38 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     BJT MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U7.QN1        X_U7.QN2        
+               NPN             NPN             
+       LEVEL    1               1            
+          IS  100.000000E-18  100.000000E-18 
+          BF   10.000000E+03  250            
+          NF    1               1            
+          BR    1               1            
+          NR    1               1            
+         ISS    0               0            
+          RE    0               0            
+          RC    0               0            
+         CJE    0               0            
+         VJE     .75             .75         
+         CJC    0               0            
+         VJC     .75             .75         
+         MJC     .33             .33         
+        XCJC    1               1            
+         CJS    0               0            
+         VJS     .75             .75         
+          KF  700.000000E-18    5.000000E-15 
+          AF    1               1            
+          CN    2.42            2.42         
+           D     .87             .87         
+
+
+**** 05/16/24 16:45:38 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     Junction FET MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U3B.jx1       X_U3B.jx2       X_U8B.jx1       X_U8B.jx2       
+               NJF             NJF             NJF             NJF             
+         VTO   -1              -1              -1              -1            
+        BETA  222.070000E-06  222.070000E-06  222.070000E-06  222.070000E-06 
+          IS  100.000000E-12  100.000000E-12  100.000000E-12  100.000000E-12 
+
+
+**** 05/16/24 16:45:38 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     SMALL SIGNAL BIAS SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(  HPF)   -7.5001  (  LPF)   -7.4966  (  VCC)    9.0000  (  VEE)   -9.0000      
+
+( INST)   -8.0481  (N14435)   -7.5001 (N14609)   -7.5001 (N15223)   -9.4020     
+
+(N15247)   -9.4019 (N15282)   -8.7648 (N15300)   -8.7648 (N16630)    -.6818     
+
+(X_U7.3)   -8.7648 (X_U7.4)   -8.7648 (X_U7.5)    8.5000 (X_U7.6)    8.5000     
+
+(X_U7.9)   -9.4021 (X_U3B.6)     .0835                   (X_U3B.7)   -9.2472    
+
+(X_U3B.8)   -9.2472                   (X_U3B.9)    0.0000                       
+
+(X_U7.10)   -9.4018                   (X_U7.11)    8.5000                       
+
+(X_U7.12)    8.9228                   (X_U7.13)   -8.6996                       
+
+(X_U7.14)   -9.3313                   (X_U7.15)    8.9821                       
+
+(X_U7.16)   -8.7648                   (X_U7.17)   -9.3586                       
+
+(X_U7.18)   -9.3668                   (X_U7.19)   -9.4018                       
+
+(X_U7.21)   -8.7648                   (X_U7.25)   -8.0567                       
+
+(X_U7.26)    7.4700                   (X_U7.27)   -7.6700                       
+
+(X_U7.36)   -8.7648                   (X_U7.38)-8.765E-06                       
+
+(X_U7.40)   -8.0567                   (X_U7.41)   -6.3981                       
+
+(X_U7.42)   -9.6981                   (X_U7.43)   41.3300                       
+
+(X_U7.44)    8.5512                   (X_U7.45)   -8.0481                       
+
+(X_U7.51)    8.3000                   (X_U7.52)    8.3000                       
+
+(X_U7.53)   -8.3000                   (X_U7.54)   -8.3000                       
+
+(X_U7.98)    0.0000                   (X_U8B.6)   15.9580                       
+
+(X_U8B.7)   -9.5337                   (X_U8B.8)   -9.5337                       
+
+(X_U8B.9)    0.0000                   (X_U3B.10)   -7.0878                      
+
+(X_U3B.11)    8.5882                  (X_U3B.12)    8.5930                      
+
+(X_U3B.53)    6.6842                  (X_U3B.54)   -6.6842                      
+
+(X_U3B.90)  -35.0120                  (X_U3B.91)   40.0000                      
+
+(X_U3B.92)  -40.0000                  (X_U3B.99)    0.0000                      
+
+(X_U8B.10)    -.5295                  (X_U8B.11)    8.1534                      
+
+(X_U8B.12)    9.0000                  (X_U8B.53)    6.6842                      
+
+(X_U8B.54)   -6.6842                  (X_U8B.90)  -40.6730                      
+
+(X_U8B.91)   40.0000                  (X_U8B.92)  -40.0000                      
+
+(X_U8B.99)    0.0000                  
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V2        -4.664E-02
+    V_V1        -2.836E-02
+    V_V3        -6.324E-10
+    X_U3B.vb     8.346E-07
+    X_U3B.vc     1.418E-11
+    X_U3B.ve    -3.501E-02
+    X_U3B.vlim  -3.501E-02
+    X_U3B.vlp   -7.501E-11
+    X_U3B.vln   -4.989E-12
+    X_U7.VIOS   -4.824E-10
+    X_U7.V1     -5.000E-04
+    X_U7.V2      1.800E-11
+    X_U7.V3      1.806E-11
+    X_U7.V12    -5.122E-06
+    X_U7.V13    -6.371E-05
+    X_U7.V6      1.653E-11
+    X_U7.V7     -3.109E-06
+    X_U7.V4     -2.659E-12
+    X_U7.V5     -2.641E-12
+    X_U8B.vb     1.596E-04
+    X_U8B.vc     1.419E-11
+    X_U8B.ve    -3.999E-02
+    X_U8B.vlim  -4.067E-02
+    X_U8B.vlp   -8.067E-11
+    X_U8B.vln    1.603E-04
+
+    TOTAL POWER DISSIPATION   3.03E-03  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 05/16/24 16:45:38 ******* PSpice Lite (March 2016) ******* ID# 10813 ****
+
+ ** Profile: "SCHEMATIC1-exp"  [ D:\workspace\circuit_schematic\Project_EMG-PSpiceFiles\SCHEMATIC1\exp.sim ] 
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+  Total job time (using Solver 1)   =         .73
+

@@ -1,8 +1,15 @@
 """snatch game
     how to make game using pygame!!
+    
+    점수별 : a, b, c, d, f -> response time으로 rt = math.sqrt((self.player.y+self.player.height)/(400+10*self.level))*1000 (ms)
+    사운드 : 추가하면 좋음
+    usart 통신  모듈 추가 필요
 """
 import pygame
 import random
+import math
+import serial
+import winsound
 
 pygame.init()
 
@@ -57,7 +64,7 @@ class Stick:
 
     def falling(self):
         self.time += 1/60
-        print("falling : ", self.time, ", ", self.y)
+        #print("falling : ", self.time, ", ", self.y)
         self.y = 0.5*self.a*self.time*self.time
         
     def collide(self, y1, height):
@@ -94,8 +101,26 @@ class Game:
 
         self.player = Player(self.win, 200, 400, 100, 80)
         self.sticks = []
+        
+        #need test
+        self.ser = serial.Serial('COM8', 9600, timeout =1)
+        #self.cnt = 0
+        if(self.ser.readable()):
+            print("usart connected!!")
 
     def update(self):
+        #uart input
+        if(self.ser.readable()):  
+            ctrl = self.ser.read()
+            if ctrl == b'y': #g is signal
+                self.player.grab = True
+                #print("grabed : " + str(self.cnt))
+            else:
+                self.player.grab = False
+                #print("not grabed : " + str(self.cnt))    
+            #self.cnt += 1
+                
+        #normal keyboard input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -105,23 +130,19 @@ class Game:
                     self.score = 0
                     self.level = 1
                     #reset the game
-                    
-            #if event.type == pygame.KEYDOWN:  # need to change(usart)
-            #    if event.key == pygame.K_SPACE:
-            #        self.player.grab = not self.player.grab
             
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE] :
                 self.player.grab = True           
             else:
-                self.player.grab = False
-
+                self.player.grab = False           
+            
         if(self.gameover) :
             return
         
         #stick gen+del
         if self.sticks:
-            print("num:"+str(len(self.sticks)))
+           #print("num:"+str(len(self.sticks)))
             for stick in self.sticks:
                 
                 rem = False
@@ -130,7 +151,7 @@ class Game:
                 if stick.collide(self.player.y, self.player.height):
                     if self.player.grab:
                         if stick.color == RED:
-                            self.score += 10
+                            self.score += 10*(1+self.level/10)
                             rem = True
                         if stick.color == BLUE:
                             self.gameover = True
@@ -140,8 +161,8 @@ class Game:
                     if stick.color == RED:
                         self.gameover = True
                         rem = True
-                    if stick.color == BLUE:
-                        self.score += 10
+                    if stick.color == BLUE: 
+                        self.score += 10*(1+self.level/10)
                         rem = True    
                 
                 if(rem):
@@ -154,23 +175,35 @@ class Game:
 
     def newStick(self):
         color = random.randrange(0, 2)
-        print("color:",color)
+        #print("color:",color)
         if color == 0:
             self.sticks.append(Stick(self.win, RED, 245, 0, 400 + 10*self.level, 10, 80))
         if color == 1:
             self.sticks.append(Stick(self.win, BLUE, 245, 0, 400 + 10*self.level, 10, 80))
+        
+        self.beep()
         self.level += 10
+    
+    def beep(self):
+        fr = 200 + self.level*1
+        du = 100
+        winsound.Beep(fr,du)
         
     def render(self):
         self.win.fill((0, 0, 0))
         
         if self.gameover:
+            
+            rt = math.sqrt((self.player.y+self.player.height)/(400+10*self.level))*1000
+            
             gameover = self.font.render("Game Over", True, (255,255,255))
-            self.win.blit(gameover, (self.width/2-100, self.height/2-60))
-            score = self.font.render("SCORE:" + str(self.score) + ", press R to restart", True, (255,255,255)) 
-            self.win.blit(score, (self.width/2-100, self.height/2-29))
+            self.win.blit(gameover, (30, self.height/2-60))
+            score = self.font.render("SCORE: " + str(int(self.score)), True, (255,255,255)) 
+            self.win.blit(score, (30, self.height/2-29))
+            response = self.font.render("RESPONSE TIME: " + str(int(rt)) + "ms, press R to restart", True, (255,255,255)) 
+            self.win.blit(response, (30, self.height/2))
         else :
-            score = self.font.render("SCORE:" + str(self.score), True, (255,255,255)) 
+            score = self.font.render("SCORE:" + str(int(self.score)), True, (255,255,255)) 
             self.win.blit(score, (350,10)) 
             self.player.draw()
             for stick in self.sticks:
@@ -184,7 +217,9 @@ class Game:
 
             self.update()
             self.render()
-
+            
+        self.ser.close()
+        print("usart unconnected!!")
 
 game = Game(500, 570, 60)
 
